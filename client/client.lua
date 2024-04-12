@@ -25,55 +25,18 @@ end
 if (Config.Version == 'esx' or Config.Version == 'esx-legacy') then
 	if Config.Version == 'esx' then
 		ESX = exports["es_extended"]:getSharedObject()
-
-		RegisterNetEvent('esx:playerLoaded')
-		AddEventHandler('esx:playerLoaded', function(xPlayer)
-			PlayerData = xPlayer
-		end)
-		
-		RegisterNetEvent('esx:setJob')
-		AddEventHandler('esx:setJob', function(job)
-			PlayerData.job = job
-		end)
 	elseif Config.Version == 'esx-legacy' then
 		Citizen.CreateThread(function()
 			while ESX == nil do
 				TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 				Citizen.Wait(0)
 			end
-		
-			while ESX.GetPlayerData().job == nil do
-				Citizen.Wait(10)
-			end
-		
-			PlayerData = ESX.GetPlayerData()
-		end)
-		
-		RegisterNetEvent('esx:playerLoaded')
-		AddEventHandler('esx:playerLoaded', function(xPlayer)
-			PlayerData = xPlayer
-		end)
-		
-		RegisterNetEvent('esx:setJob')
-		AddEventHandler('esx:setJob', function(job)
-			PlayerData.job = job
 		end)
 	end
 end
 
 if Config.Version == 'qb' then
 	QBCore = exports['qb-core']:GetCoreObject()
-	PlayerData = QBCore.Functions.GetPlayerData()
-
-	RegisterNetEvent("QBCore:Client:OnPlayerLoaded")
-	AddEventHandler("QBCore:Client:OnPlayerLoaded", function()
-		PlayerData = QBCore.Functions.GetPlayerData()
-	end)
-
-	RegisterNetEvent("QBCore:Client:OnJobUpdate")
-	AddEventHandler("QBCore:Client:OnJobUpdate", function(job)
-		PlayerData.job = job
-	end)
 end
 
 function ShowNotification(msg, type)
@@ -280,9 +243,10 @@ function canOpenTablet(system, newSite, pos)
 		end
 	end
 	if (Config.Version == 'esx' or Config.Version == 'esx-legacy') then
+		PlayerData = ESX.GetPlayerData()
+
 		if newSite == 'tab' and Config.NeededItem ~= nil and Config.NeededItem ~= 'nil' then 
 			local found = false
-			PlayerData = ESX.GetPlayerData()
 	
 			for k,v in pairs(PlayerData.inventory) do
 				if found == true then
@@ -358,12 +322,11 @@ function canOpenTablet(system, newSite, pos)
 				return false
 			end
 		end
-	end
+	elseif Config.Version == 'qb' then
+		PlayerData = QBCore.Functions.GetPlayerData()
 
-	if Config.Version == 'qb' then
 		if newSite == 'tab' and Config.NeededItem ~= nil and Config.NeededItem ~= 'nil' then 
 			local found = false
-			PlayerData = QBCore.Functions.GetPlayerData()
 	
 			for k,v in pairs(PlayerData.items) do
 				if found == true then
