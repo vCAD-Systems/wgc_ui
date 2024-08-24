@@ -1,17 +1,17 @@
 var lastSite = "https://copnet.ch";
 
-$(document).ready(function() {
+$(document).ready(function () {
     var tabWrap = $(".tab-wrap");
     let tabContainer = "#tab-container";
     // Show or hide the page
-    function HIDE_TAB() {        
+    function HIDE_TAB() {
         $("#tab-container").css("display", "none");
         $("#tab-container-flixxx").css("display", "none");
         window.blur(); // unfocus the window
     }
     HIDE_TAB(); // hide the tablet initial
     // Listens for NUI messages from Lua 
-    window.addEventListener('message', function(event) {
+    window.addEventListener('message', function (event) {
         if (event.data.showtab) {
             if (event.data.design) {
                 tabContainer = "#tab-container-flixxx";
@@ -32,7 +32,7 @@ $(document).ready(function() {
                         .css("min-height", "95%");
                 }
             }
-            
+
             if (event.data.site != null) {
                 $(tabContainer).find("iframe").attr('src', event.data.site);
                 lastSite = event.data.site;
@@ -53,7 +53,7 @@ $(document).ready(function() {
         }
     });
     // When clicked the dot
-    $('.dot').click(function() {
+    $('.dot').click(function () {
         if (this.id == 'off') {
             HIDE_TAB(); // hide ui
             $.post(`http://${GetParentResourceName()}/tablet-bus`, JSON.stringify({
@@ -63,7 +63,7 @@ $(document).ready(function() {
             $(tabContainer).find("iframe").attr('src', lastSite);
         }
     });
-    
+
     // Tell lua the nui loaded
     $.post(`http://${GetParentResourceName()}/tablet-bus`, JSON.stringify({
         load: true

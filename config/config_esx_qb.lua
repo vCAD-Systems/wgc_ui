@@ -4,13 +4,13 @@ Falls Feature nicht erwünscht:
 Nein = nil
 ]]
 -- Für CopNet:
-Config.CopNetJob = {'police'}
+Config.CopNetJob = { 'police' }
 -- Für MedicNet:
-Config.MedicNetJob = {'ambulance'}
+Config.MedicNetJob = { 'ambulance' }
 -- Für CarNet:
-Config.CarNetJob = {'cardealer', 'mechanic'}
+Config.CarNetJob = { 'cardealer', 'mechanic' }
 -- Für FDNet:
-Config.FireNetJob = {'fire'}
+Config.FireNetJob = { 'fire' }
 
 --[[
 Welche Items braucht man um das Tablet öffnen zu können..?
@@ -21,7 +21,7 @@ Nein = nil
 Config.NeededItem = nil
 
 --[[
-Soll man das Tablet auch beim *Benutzen* des Items öffnen können? 
+Soll man das Tablet auch beim *Benutzen* des Items öffnen können?
 Diese Funktion funktioniert nur, wenn Config.NeededItem NICHT "nil" ist.
 Alle Items aus Config.NeededItem nutzbar = 'all'
 bestimmtes Item nutzbar = 'itemname'

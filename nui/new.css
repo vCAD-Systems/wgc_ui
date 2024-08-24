@@ -10,7 +10,8 @@
     width: 1471px;
     flex: 0.92;
     /*height: 937px;*/
-    background:black; /* Tablet - hide background */
+    background: black;
+    /* Tablet - hide background */
     margin-top: 48px;
     margin-left: 192px;
     padding: 0;
@@ -36,7 +37,7 @@
     #tab-container-flixxx .iframe {
         flex: 0.67;
     }
-    
+
     #tab-container-flixxx #tab-wrap-flixxx .dot {
         bottom: 1415px !important;
         left: -860px !important;
@@ -51,7 +52,7 @@
     #tab-container-flixxx .iframe {
         flex: 0.435;
     }
-    
+
     #tab-container-flixxx #tab-wrap-flixxx .dot {
         bottom: 2135px !important;
         left: -1600px !important;
@@ -79,7 +80,7 @@
     flex-direction: column;
 }
 
-#tab-container-flixxx #tab-wrap-flixxx .dot { 
+#tab-container-flixxx #tab-wrap-flixxx .dot {
     position: absolute;
     width: 75px;
     height: 10px;
@@ -94,12 +95,14 @@
     background: rgb(51, 51, 51);
 }
 
-#tab-container-flixxx #tab-wrap-flixxx .dot#off { /* Button */
+#tab-container-flixxx #tab-wrap-flixxx .dot#off {
+    /* Button */
     margin-left: 50%;
     width: 75px;
 }
 
-#tab-container-flixxx #tab-wrap-flixxx .dot#reset { /* Home Button */
+#tab-container-flixxx #tab-wrap-flixxx .dot#reset {
+    /* Home Button */
     margin-left: 57.4%;
     width: 140px;
 }

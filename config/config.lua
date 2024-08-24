@@ -49,7 +49,7 @@ Befehl = PublicID
 ]]
 Config.Commands = {
     Tablet = true, -- "/copnet", "/medicnet" & "/carnet"
-    Gesetze = nil -- "/gesetze" statt nil die PublicID eintragen
+    Gesetze = nil  -- "/gesetze" statt nil die PublicID eintragen
 }
 
 --[[
@@ -77,7 +77,7 @@ Ja = Taste Beispiel: 'F10'
 Nein = nil
 ]]
 -- Für CopNet:
-Config.Hotkey = 'F10' 
+Config.Hotkey = 'F10'
 -- Für MedicNet:
 Config.MedicHotkey = 'F9'
 -- Für CarNet:
@@ -120,7 +120,7 @@ Aktiviert das "Autoscaling" des Uis:
 Einfach gesagt: Tablet klein, PC groß.
 Ja = true
 Nein = false
-! WICHTIG ! 
+! WICHTIG !
 Beim Tablet können manche Knöpfe und/oder Textfelder nicht erreichbar sein!
 Das passiert, da das Tablet nicht für die kleine Ansicht ausgelegt ist!
 ! WICHTIG !

@@ -7,11 +7,11 @@ version '2.0.0'
 
 client_scripts {
     '@NativeUI/NativeUI.lua',
-	'config/config.lua',
+    'config/config.lua',
     'config/config_esx_qb.lua',
     'config/zonen.lua',
-    
-	'client/client.lua',
+
+    'client/client.lua',
 }
 
 server_scripts {
