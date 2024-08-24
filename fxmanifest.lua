@@ -3,7 +3,7 @@ game 'gta5'
 
 name 'vCAD UI - ESX Version'
 author 'Ffrankys, Flixxx, Tallerik & Mîhó'
-version '2.0.0'
+version '2.0.1'
 
 client_scripts {
     '@NativeUI/NativeUI.lua',
@@ -20,7 +20,8 @@ server_scripts {
     'config/config_esx_qb.lua',
     'config/zonen.lua',
 
-    'server/server.lua'
+    'server/server.lua',
+    'server/items.lua'
 }
 
 ui_page 'nui/index.html'

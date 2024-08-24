@@ -1,6 +1,6 @@
 local Categories = {}
 local Zones = {}
-local ESX = nil
+ESX = nil
 
 if Config.Version == "esx" or Config.Version == "esx-legacy" then
 	if Config.Version == "esx" then
@@ -129,42 +129,4 @@ end
 
 function firstToUpper(str)
     return (str:gsub("^%l", string.upper))
-end
-
-if Config.CanUseItem ~= nil and Config.Version == "esx-legacy" or Config.Version == "esx" then
-	if type(Config.NeededItem) == 'table'then
-		for k, v in pairs(Config.NeededItem) do
-			ESX.RegisterUsableItem(v, function(source)
-				local xPlayer = ESX.GetPlayerFromId(source)
-				local job = xPlayer.job.name
-				for _, x in pairs(Config.CopNetJob) do
-					if job == x then
-						TriggerClientEvent('vCAD:openUI', source, 'cop', Config.OpenType)
-						return
-					end
-				end
-		
-				for _, x in pairs(Config.MedicNetJob) do
-					if job == x then
-						TriggerClientEvent('vCAD:openUI', source, 'medic', Config.OpenType)
-						return
-					end
-				end
-		
-				for _, x in pairs(Config.CarNetJob) do
-					if job == x then
-						TriggerClientEvent('vCAD:openUI', source, 'car', Config.OpenType)
-						return
-					end
-				end
-		
-				for _, x in pairs(Config.FireNetJob) do
-					if job == x then
-						TriggerClientEvent('vCAD:openUI', source, 'fd', Config.OpenType)
-						return
-					end
-				end
-			end)
-		end
-	end
 end
