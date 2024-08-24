@@ -1,16 +1,5 @@
 local Categories = {}
 local Zones = {}
-ESX = nil
-
-if Config.Version == "esx" or Config.Version == "esx-legacy" then
-	if Config.Version == "esx" then
-		ESX = exports["es_extended"]:getSharedObject()
-	end
-
-	if Config.Version == "esx-legacy" then
-		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-	end
-end
 
 if Config.OxMySQL then
 	function CallDbData()
