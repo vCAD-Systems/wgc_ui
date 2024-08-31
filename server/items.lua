@@ -1,15 +1,3 @@
-ESX = nil
-QBCore = nil
-
-if Config.Version == "esx" then
-    ESX = exports["es_extended"]:getSharedObject()
-elseif Config.Version == "esx-legacy" then
-    TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
-elseif Config.Version == "qb" then
-    QBCore = exports['qb-core']:GetCoreObject()
-end
-
-
 local function openUIwithCorrectJob_internal(src, jobs, playerJob, vCADnet)
     for _, job in pairs(jobs) do
         if job == playerJob then
@@ -57,7 +45,7 @@ local function registerIfItemInTable(tableToCheck, itemname)
     return false
 end
 
-if Config.CanUseItem and Config.Version and (Config.Version == "esx-legacy" or Config.Version == "esx" or Config.Version == "qb") then
+if Config.CanUseItem and Config.Version ~= nil and (Config.Version == "esx-legacy" or Config.Version == "esx" or Config.Version == "qb") then
     local canUseItemDataType = type(Config.CanUseItem)
     local neededItemDataType = type(Config.NeededItem)
 

@@ -1,6 +1,19 @@
 local Categories = {}
 local Zones = {}
 
+
+ESX = nil
+QBCore = nil
+
+if Config.Version == "esx" then
+    ESX = exports["es_extended"]:getSharedObject()
+elseif Config.Version == "esx-legacy" then
+    TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
+elseif Config.Version == "qb" then
+    QBCore = exports['qb-core']:GetCoreObject()
+end
+
+
 if Config.OxMySQL then
 	function CallDbData()
 		MySQL.query("SELECT * FROM vcad_categories", {}, function(rs)
