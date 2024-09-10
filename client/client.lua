@@ -19,7 +19,7 @@ local hasAlreadyEnteredMarker = false
 local PlayerData
 
 if Config.NativeUIEnabled then
-	_menuPool  = NativeUI.CreatePool()
+	_menuPool = NativeUI.CreatePool()
 end
 
 if (Config.Version == 'esx' or Config.Version == 'esx-legacy') then
@@ -74,23 +74,22 @@ function CreateDialog(OnScreenDisplayTitle_shopmenu) --general OnScreenDisplay f
 end
 
 function TOGGLE_NUI_FOCUS(bool, reload)
-	if (site ~= 'cop' and 
-		site ~= 'medic' and 
-		site ~= 'car' and 
-		site ~= 'fd') 
+	if (site ~= 'cop' and
+			site ~= 'medic' and
+			site ~= 'car' and
+			site ~= 'fd')
 		or (
-		subSite ~= 'tab' and 
-		subSite ~= 'pc' and 
-		subSite ~= 'katalog' and 
-		subSite ~= 'strafen' and 
-		subSite ~= 'bewerben' and 
-		subSite ~= 'beschweren' and 
-		subSite ~= 'wanted' and 
-		subSite ~= 'calendar' and 
-		subSite ~= 'hp' and
-		subSite ~= 'rechnung'
+			subSite ~= 'tab' and
+			subSite ~= 'pc' and
+			subSite ~= 'katalog' and
+			subSite ~= 'strafen' and
+			subSite ~= 'bewerben' and
+			subSite ~= 'beschweren' and
+			subSite ~= 'wanted' and
+			subSite ~= 'calendar' and
+			subSite ~= 'hp' and
+			subSite ~= 'rechnung'
 		) then
-
 		ShowNotification('~r~Fehler beim einrichten des vCAD UIs.', "error")
 		ShowNotification('~r~Fehler beim einrichten des vCAD UIs!', "error")
 		return
@@ -101,22 +100,22 @@ function TOGGLE_NUI_FOCUS(bool, reload)
 	if bool == true then
 		local openSite = GetURL(site)
 
-		if 
-		subSite == 'katalog' or 
-		subSite == 'bewerben' or 
-		subSite == 'strafen' or 
-		subSite == "calendar" or 
-		subSite == "wanted" or 
-		subSite == "beschweren" or 
-		subSite == "hp" or
-		subSite == "rechnung" then
+		if
+			subSite == 'katalog' or
+			subSite == 'bewerben' or
+			subSite == 'strafen' or
+			subSite == "calendar" or
+			subSite == "wanted" or
+			subSite == "beschweren" or
+			subSite == "hp" or
+			subSite == "rechnung" then
 			if PublicID ~= nil then
 				if site == 'car' and subSite == 'katalog' then
-					openSite = openSite..'shop?sp='..PublicID
+					openSite = openSite .. 'shop?sp=' .. PublicID
 				elseif site == 'cop' and subSite == 'strafen' then
-					openSite = openSite..'strafen?c='..PublicID
-				else 
-					openSite = openSite..subSite..'?c='..PublicID
+					openSite = openSite .. 'strafen?c=' .. PublicID
+				else
+					openSite = openSite .. subSite .. '?c=' .. PublicID
 				end
 			else
 				print('[vCAD_UI] Error: `PublicID` ist ungültig oder nicht angegeben.')
@@ -125,9 +124,10 @@ function TOGGLE_NUI_FOCUS(bool, reload)
 		end
 
 		if reload then
-			SendNUIMessage({showtab = true, design = Config.Design, autoscale = Config.AutoScale and subSite == 'tab', site = openSite})
+			SendNUIMessage({ showtab = true, design = Config.Design, autoscale = Config.AutoScale and subSite == 'tab', site =
+			openSite })
 		else
-			SendNUIMessage({showtab = true, design = Config.Design, autoscale = Config.AutoScale and subSite == 'tab'})
+			SendNUIMessage({ showtab = true, design = Config.Design, autoscale = Config.AutoScale and subSite == 'tab' })
 		end
 
 		SetNuiFocus(bool, bool)
@@ -140,12 +140,13 @@ function TOGGLE_NUI_FOCUS(bool, reload)
 				Citizen.Wait(1)
 			end
 
-			TaskPlayAnim(PlayerPed, "amb@world_human_seat_wall_tablet@female@base", "base", 8.0, -8.0, -1, 50, 0, false, false, false)
+			TaskPlayAnim(PlayerPed, "amb@world_human_seat_wall_tablet@female@base", "base", 8.0, -8.0, -1, 50, 0, false,
+				false, false)
 			attachObject()
 		end
-    else
-        CloseTab()
-    end
+	else
+		CloseTab()
+	end
 end
 
 function GetURL(system)
@@ -165,14 +166,15 @@ function GetURL(system)
 end
 
 function attachObject()
-	if tab ~= nil then 
+	if tab ~= nil then
 		DeleteObject(tab)
 	end
 
 	local PlayerPed = PlayerPedId()
-	
+
 	tab = CreateObject(GetHashKey("prop_cs_tablet"), 0, 0, 0, true, true, true)
-	AttachEntityToEntity(tab, PlayerPed, GetPedBoneIndex(PlayerPed, 57005), 0.17, 0.10, -0.13, 20.0, 180.0, 180.0, true, true, false, true, 1, true)
+	AttachEntityToEntity(tab, PlayerPed, GetPedBoneIndex(PlayerPed, 57005), 0.17, 0.10, -0.13, 20.0, 180.0, 180.0, true,
+		true, false, true, 1, true)
 end
 
 RegisterNUICallback("tablet-bus", function(data)
@@ -187,15 +189,15 @@ RegisterNUICallback("tablet-bus", function(data)
 end)
 
 function CloseTab()
-	SendNUIMessage({hidetab = true})
+	SendNUIMessage({ hidetab = true })
 	SetNuiFocus(false, false)
-	
+
 	if Config.Animation == true or tab ~= nil then
 		ClearPedTasks(PlayerPedId())
 		DeleteObject(tab)
 		tab = nil
 	end
-	
+
 	PublicID = nil
 end
 
@@ -212,17 +214,17 @@ function canOpenTablet(system, newSite, pos)
 	local canOpen = not Config.OnlyInVehicle
 	local canOpenType = newSite
 
-	if newSite == 'katalog' 
-	or newSite == 'bewerben' 
-	or newSite == 'strafen' 
-	or newSite == 'wanted'
-	or newSite == 'beschweren'
-	or newSite == 'calendar'
-	or newSite == 'hp'
-	or newSite == 'rechnung' then
+	if newSite == 'katalog'
+		or newSite == 'bewerben'
+		or newSite == 'strafen'
+		or newSite == 'wanted'
+		or newSite == 'beschweren'
+		or newSite == 'calendar'
+		or newSite == 'hp'
+		or newSite == 'rechnung' then
 		return true, canOpenType
 	end
-	
+
 	if Config.OnlyInVehicle == true and IsPedInAnyVehicle(PlayerPed, false) then
 		if Config.InEmergencyVehicle == true then
 			if GetVehicleClass(GetVehiclePedIsIn(PlayerPed, false)) == 18 then
@@ -233,7 +235,7 @@ function canOpenTablet(system, newSite, pos)
 
 		if #Config.Vehicles[system] > 0 then
 			local vehHash = GetEntityModel(GetVehiclePedIsIn(PlayerPed, false))
-			for k,v in pairs(Config.Vehicles[system]) do
+			for k, v in pairs(Config.Vehicles[system]) do
 				if (tonumber(v) and v == vehHash) or (tostring(v) and GetHashKey(v) == vehHash) then
 					canOpen = true
 					canOpenType = Config.VehicleOpenType
@@ -245,14 +247,14 @@ function canOpenTablet(system, newSite, pos)
 	if (Config.Version == 'esx' or Config.Version == 'esx-legacy') then
 		PlayerData = ESX.GetPlayerData()
 
-		if newSite == 'tab' and Config.NeededItem ~= nil and Config.NeededItem ~= 'nil' then 
+		if newSite == 'tab' and Config.NeededItem ~= nil and Config.NeededItem ~= 'nil' then
 			local found = false
-	
-			for k,v in pairs(PlayerData.inventory) do
+
+			for k, v in pairs(PlayerData.inventory) do
 				if found == true then
 					break
 				elseif type(Config.NeededItem) == 'table' then
-					for key,value in pairs(Config.NeededItem) do
+					for key, value in pairs(Config.NeededItem) do
 						if v.name ~= nil and v.name ~= 'nil' and v.name == value and v.count > 0 then
 							found = true
 							break
@@ -263,61 +265,61 @@ function canOpenTablet(system, newSite, pos)
 					break
 				end
 			end
-	
+
 			if found == false then
 				return false
 			end
 		end
-	
+
 		if system == 'cop' and Config.CopNetJob ~= nil and Config.CopNetJob ~= 'nil' and PlayerData.job ~= nil then
 			local found = false
-	
-			for k,v in pairs(Config.CopNetJob) do
+
+			for k, v in pairs(Config.CopNetJob) do
 				if PlayerData.job.name == v then
 					found = true
 					break
 				end
 			end
-	
+
 			if found == false then
 				return false
 			end
 		elseif system == 'medic' and Config.MedicNetJob ~= nil and Config.MedicNetJob ~= 'nil' and PlayerData.job ~= nil then
 			local found = false
-			
-			for k,v in pairs(Config.MedicNetJob) do
+
+			for k, v in pairs(Config.MedicNetJob) do
 				if PlayerData.job.name == v then
 					found = true
 					break
 				end
 			end
-	
+
 			if found == false then
 				return false
 			end
 		elseif system == 'car' and newSite ~= 'katalog' and Config.CarNetJob ~= nil and Config.CarNetJob ~= 'nil' and PlayerData.job ~= nil then
 			local found = false
-			
-			for k,v in pairs(Config.CarNetJob) do
+
+			for k, v in pairs(Config.CarNetJob) do
 				if PlayerData.job.name == v then
 					found = true
 					break
 				end
 			end
-	
+
 			if found == false then
 				return false
 			end
 		elseif system == 'fd' and newSite ~= 'katalog' and Config.FireNetJob ~= nil and Config.FireNetJob ~= 'nil' and PlayerData.job ~= nil then
 			local found = false
-			
-			for k,v in pairs(Config.FireNetJob) do
+
+			for k, v in pairs(Config.FireNetJob) do
 				if PlayerData.job.name == v then
 					found = true
 					break
 				end
 			end
-	
+
 			if found == false then
 				return false
 			end
@@ -325,14 +327,14 @@ function canOpenTablet(system, newSite, pos)
 	elseif Config.Version == 'qb' then
 		PlayerData = QBCore.Functions.GetPlayerData()
 
-		if newSite == 'tab' and Config.NeededItem ~= nil and Config.NeededItem ~= 'nil' then 
+		if newSite == 'tab' and Config.NeededItem ~= nil and Config.NeededItem ~= 'nil' then
 			local found = false
-	
-			for k,v in pairs(PlayerData.items) do
+
+			for k, v in pairs(PlayerData.items) do
 				if found == true then
 					break
 				elseif type(Config.NeededItem) == 'table' then
-					for key,value in pairs(Config.NeededItem) do
+					for key, value in pairs(Config.NeededItem) do
 						if v.name ~= nil and v.name ~= 'nil' and v.name == value and tonumber(v.amount) > 0 then
 							found = true
 							break
@@ -343,67 +345,67 @@ function canOpenTablet(system, newSite, pos)
 					break
 				end
 			end
-	
+
 			if found == false then
 				return false
 			end
 		end
-	
+
 		if system == 'cop' and Config.CopNetJob ~= nil and Config.CopNetJob ~= 'nil' and PlayerData.job ~= nil then
 			local found = false
-	
-			for k,v in pairs(Config.CopNetJob) do
+
+			for k, v in pairs(Config.CopNetJob) do
 				if PlayerData.job.name == v then
 					found = true
 					break
 				end
 			end
-	
+
 			if found == false then
 				return false
 			end
 		elseif system == 'medic' and Config.MedicNetJob ~= nil and Config.MedicNetJob ~= 'nil' and PlayerData.job ~= nil then
 			local found = false
-			
-			for k,v in pairs(Config.MedicNetJob) do
+
+			for k, v in pairs(Config.MedicNetJob) do
 				if PlayerData.job.name == v then
 					found = true
 					break
 				end
 			end
-	
+
 			if found == false then
 				return false
 			end
 		elseif system == 'car' and newSite ~= 'katalog' and Config.CarNetJob ~= nil and Config.CarNetJob ~= 'nil' and PlayerData.job ~= nil then
 			local found = false
-			
-			for k,v in pairs(Config.CarNetJob) do
+
+			for k, v in pairs(Config.CarNetJob) do
 				if PlayerData.job.name == v then
 					found = true
 					break
 				end
 			end
-	
+
 			if found == false then
 				return false
 			end
 		elseif system == 'fd' and newSite ~= 'katalog' and Config.FireNetJob ~= nil and Config.FireNetJob ~= 'nil' and PlayerData.job ~= nil then
 			local found = false
-			
-			for k,v in pairs(Config.FireNetJob) do
+
+			for k, v in pairs(Config.FireNetJob) do
 				if PlayerData.job.name == v then
 					found = true
 					break
 				end
 			end
-	
+
 			if found == false then
 				return false
 			end
 		end
 	end
-	
+
 	return canOpen, canOpenType
 end
 
@@ -441,7 +443,7 @@ AddEventHandler('vCAD:openUI', function(system, newSite, publicid)
 					PublicID = publicid
 					reloadTab = true
 				end
-				
+
 				lastOpend = GetGameTimer()
 				tabEnabled = true
 				TOGGLE_NUI_FOCUS(true, reloadTab)
@@ -463,7 +465,7 @@ Citizen.CreateThread(function()
 
 			if IsPedFatallyInjured(PlayerPed) and not isDead then
 				isDead = true
-					
+
 				if tabEnabled then
 					tabEnabled = false
 					TOGGLE_NUI_FOCUS(false)
@@ -481,14 +483,16 @@ Citizen.CreateThread(function()
 		local playerCoords = GetEntityCoords(PlayerPedId())
 		local letSleep = true
 
-		for k,v in ipairs(Config.Zones) do
+		for k, v in ipairs(Config.Zones) do
 			local distance = #(playerCoords - v.Coords)
-		
+
 			if distance < 50.0 then
-				DrawMarker(Config.Marker.type, v.Coords, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Config.Marker.x, Config.Marker.y, Config.Marker.z, Config.Marker.r, Config.Marker.g, Config.Marker.b, Config.Marker.a, false, false, 2, Config.Marker.rotate, nil, nil, false)
+				DrawMarker(Config.Marker.type, v.Coords, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Config.Marker.x, Config.Marker.y,
+					Config.Marker.z, Config.Marker.r, Config.Marker.g, Config.Marker.b, Config.Marker.a, false, false, 2,
+					Config.Marker.rotate, nil, nil, false)
 				letSleep = false
 
-				
+
 				if distance <= Config.Marker.x then
 					ShowHelpNotification(v.Prompt)
 
@@ -522,25 +526,25 @@ if Config.FDHotkey ~= nil and Config.FDHotkey ~= "nil" then
 end
 
 if Config.Commands.Tablet == true or (Config.Hotkey ~= nil and Config.Hotkey ~= "nil") then
-	RegisterCommand('copnet',function(source, args)
+	RegisterCommand('copnet', function(source, args)
 		TriggerEvent('vCAD:openUI', 'cop', Config.OpenType)
 	end, false)
 end
 
 if Config.Commands.Tablet == true or (Config.MedicHotkey ~= nil and Config.MedicHotkey ~= "nil") then
-	RegisterCommand('medicnet',function(source, args)
+	RegisterCommand('medicnet', function(source, args)
 		TriggerEvent('vCAD:openUI', 'medic', Config.OpenType)
 	end, false)
 end
 
 if Config.Commands.Tablet == true or (Config.CarHotkey ~= nil and Config.CarHotkey ~= "nil") then
-	RegisterCommand('carnet',function(source, args)
+	RegisterCommand('carnet', function(source, args)
 		TriggerEvent('vCAD:openUI', 'car', Config.OpenType)
 	end, false)
 end
 
 if Config.Commands.Tablet == true or (Config.FDHotkey ~= nil and Config.FDHotkey ~= "nil") then
-	RegisterCommand('firenet',function(source, args)
+	RegisterCommand('firenet', function(source, args)
 		TriggerEvent('vCAD:openUI', 'fd', Config.OpenType)
 	end, false)
 end
@@ -552,7 +556,7 @@ if Config.Commands.Gesetze ~= nil and Config.Commands.Gesetze ~= 'nil' then
 end
 
 RegisterNetEvent('vCAD:AddPunkt')
-AddEventHandler('vCAD:AddPunkt', function(rs) 
+AddEventHandler('vCAD:AddPunkt', function(rs)
 	--[[
 		table.insert(Config.Zones, {
         Coords = rs.Coords,
@@ -615,26 +619,26 @@ end)
 if Config.NativeUIEnabled and not Config.OxMySQL then
 	function OpenMenu()
 		_menuPool:Remove()
-	
+
 		local System = 'cop'
 		local PublicID = nil
-	
+
 		if xOpenMenu ~= nil and xOpenMenu:Visible() then
 			xOpenMenu:Visible(false)
 			return
 		end
-	
+
 		xOpenMenu = NativeUI.CreateMenu('vCAD', 'Hier kannst du Positionen Hinzufügen für das Tablet.', 5, 100)
 		_menuPool:Add(xOpenMenu)
 
-	
-		local auswahl = {"~b~CopNet", "~r~MedicNet", "~y~CarNet", "~o~FireNet"}
+
+		local auswahl = { "~b~CopNet", "~r~MedicNet", "~y~CarNet", "~o~FireNet" }
 		local xSystem = NativeUI.CreateListItem("System:", auswahl, 1)
 		xOpenMenu:AddItem(xSystem)
-	
+
 		local xfrei = NativeUI.CreateItem('----------------------------------', '')
 		xOpenMenu:AddItem(xfrei)
-	
+
 		local xPcSetzen = NativeUI.CreateItem('🖥️ Pc setzen', 'Setzt den PC für das System (~r~siehe oben~s~)')
 		xPcSetzen.Activated = function(sender, item)
 			local ped = PlayerPedId()
@@ -647,105 +651,110 @@ if Config.NativeUIEnabled and not Config.OxMySQL then
 			TriggerServerEvent('vCAD:SaveZonenConfig', posi, PublicID, 'pc', Prompt, System)
 		end
 		xOpenMenu:AddItem(xPcSetzen)
-	
-		local BewerbungenAdd = NativeUI.CreateItem('📓 Bewerbungspunkt Hinzufügen', 'Fügt ein PC Hinzu wo sich die Personen Bewerben können für das System (~r~siehe oben~s~).')
+
+		local BewerbungenAdd = NativeUI.CreateItem('📓 Bewerbungspunkt Hinzufügen',
+			'Fügt ein PC Hinzu wo sich die Personen Bewerben können für das System (~r~siehe oben~s~).')
 		BewerbungenAdd.Activated = function(sender, item)
 			ShowNotification("Gib nun die PublicID ein!", "info")
 			Wait(500)
 			PublicID = CreateDialog("PublicID")
-	
+
 			if PublicID == nil or PublicID == '' then
 				ShowNotification('Du musst eine Public ID eingeben.')
 				return
 			end
-	
+
 			local ped = PlayerPedId()
 			local coords = GetEntityCoords(ped)
 			local posi = vector3(coords.x, coords.y, coords.z - 1.0)
 			local Prompt = CheckPrompt('bewerben')
-	
+
 			TriggerServerEvent('vCAD:SaveZonenConfig', posi, PublicID, 'bewerben', Prompt, System)
 		end
 		xOpenMenu:AddItem(BewerbungenAdd)
-	
+
 		-------------------------------------------------------------------------------------------------------------------------
-		local BeschwerdenAdd = NativeUI.CreateItem('🤬 Beschwerdepunkt Hinzufügen', 'Fügt ein PC Hinzu wo sich die Personen Beschwerden können für das System (~r~siehe oben~s~).')
+		local BeschwerdenAdd = NativeUI.CreateItem('🤬 Beschwerdepunkt Hinzufügen',
+			'Fügt ein PC Hinzu wo sich die Personen Beschwerden können für das System (~r~siehe oben~s~).')
 		BeschwerdenAdd.Activated = function(sender, item)
 			ShowNotification("Gib nun die PublicID ein!", "info")
 			Wait(500)
 			PublicID = CreateDialog("PublicID")
-	
+
 			if PublicID == nil or PublicID == '' then
 				ShowNotification('Du musst eine Public ID eingeben.')
 				return
 			end
-	
+
 			local ped = PlayerPedId()
 			local coords = GetEntityCoords(ped)
 			local posi = vector3(coords.x, coords.y, coords.z - 1.0)
 			local Prompt = CheckPrompt('beschweren')
-	
+
 			TriggerServerEvent('vCAD:SaveZonenConfig', posi, PublicID, 'beschweren', Prompt, System)
 		end
 		xOpenMenu:AddItem(BeschwerdenAdd)
-	
-		local CalendarAdd = NativeUI.CreateItem('🗓️ Kalenderpunkt Hinzufügen', 'Fügt ein Punkt Hinzu, wo Spieler den Öffentlichen Kalender einsehen können. Für das System (~r~siehe oben~s).')
+
+		local CalendarAdd = NativeUI.CreateItem('🗓️ Kalenderpunkt Hinzufügen',
+			'Fügt ein Punkt Hinzu, wo Spieler den Öffentlichen Kalender einsehen können. Für das System (~r~siehe oben~s).')
 		CalendarAdd.Activated = function(sender, item)
 			ShowNotification("Gib nun die PublicID ein!", "info")
 			Wait(500)
 			PublicID = CreateDialog("PublicID")
-	
+
 			if PublicID == nil or PublicID == '' then
 				ShowNotification('Du musst eine Public ID eingeben.')
 				return
 			end
-	
+
 			local ped = PlayerPedId()
 			local coords = GetEntityCoords(ped)
 			local posi = vector3(coords.x, coords.y, coords.z - 1.0)
 			local Prompt = CheckPrompt('calendar')
-	
+
 			TriggerServerEvent('vCAD:SaveZonenConfig', posi, PublicID, 'calendar', Prompt, System)
 		end
 		xOpenMenu:AddItem(CalendarAdd)
 
-		local HpAdd = NativeUI.CreateItem('🖥️ Homepage Hinzufügen', 'Fügt ein Punkt Hinzu, wo Spieler die Öffentliche Homepage aufrufen können. Für das System (~r~siehe oben~s).')
-        HpAdd.Activated = function(sender, item)
+		local HpAdd = NativeUI.CreateItem('🖥️ Homepage Hinzufügen',
+			'Fügt ein Punkt Hinzu, wo Spieler die Öffentliche Homepage aufrufen können. Für das System (~r~siehe oben~s).')
+		HpAdd.Activated = function(sender, item)
 			ShowNotification("Gib nun die PublicID ein!", "info")
 			Wait(500)
 			PublicID = CreateDialog("PublicID")
-	
+
 			if PublicID == nil or PublicID == '' then
 				ShowNotification('Du musst eine Public ID eingeben.')
 				return
 			end
-	
+
 			local ped = PlayerPedId()
 			local coords = GetEntityCoords(ped)
 			local posi = vector3(coords.x, coords.y, coords.z - 1.0)
 			local Prompt = CheckPrompt('hp')
-	
+
 			TriggerServerEvent('vCAD:SaveZonenConfig', posi, PublicID, 'hp', Prompt, System)
 		end
 		xOpenMenu:AddItem(HpAdd)
 		-------------------------------------------------------------------------------------------------------------------------
-	
-	
-	
+
+
+
 		local xfrei = NativeUI.CreateItem('----------------------------------', '')
 		xOpenMenu:AddItem(xfrei)
-	
-		local StrafenKatalogAdd = NativeUI.CreateItem('🔎 Strafen Katalog Hinzufügen', 'An diesem Punkt können die Spieler dann die Strafen einsehen.')
+
+		local StrafenKatalogAdd = NativeUI.CreateItem('🔎 Strafen Katalog Hinzufügen',
+			'An diesem Punkt können die Spieler dann die Strafen einsehen.')
 		StrafenKatalogAdd.Activated = function(sender, item)
 			ShowNotification("Gib nun die PublicID ein!", "info")
 			Wait(500)
 			PublicID = CreateDialog("PublicID")
-	
+
 			if PublicID == nil or PublicID == '' then
 				ShowNotification('Du musst eine Public ID eingeben.')
 				return
 			end
-	
+
 			local ped = PlayerPedId()
 			local coords = GetEntityCoords(ped)
 			local posi = vector3(coords.x, coords.y, coords.z - 1.0)
@@ -754,53 +763,55 @@ if Config.NativeUIEnabled and not Config.OxMySQL then
 			TriggerServerEvent('vCAD:SaveZonenConfig', posi, PublicID, 'strafen', Prompt, System)
 		end
 		xOpenMenu:AddItem(StrafenKatalogAdd)
-	
-		local FahndungAdd = NativeUI.CreateItem('🚨 Fahndungspunkt Hinzufügen', 'An diesem Punkt können die Spieler die Öffentlichen Fahndungen einsehen.')
+
+		local FahndungAdd = NativeUI.CreateItem('🚨 Fahndungspunkt Hinzufügen',
+			'An diesem Punkt können die Spieler die Öffentlichen Fahndungen einsehen.')
 		FahndungAdd.Activated = function(sender, item)
 			ShowNotification("Gib nun die PublicID ein!", "info")
 			Wait(500)
 			PublicID = CreateDialog("PublicID")
-	
+
 			if PublicID == nil or PublicID == '' then
 				ShowNotification('Du musst eine Public ID eingeben.')
 				return
 			end
-	
+
 			local ped = PlayerPedId()
 			local coords = GetEntityCoords(ped)
 			local posi = vector3(coords.x, coords.y, coords.z - 1.0)
 			local Prompt = CheckPrompt('wanted')
-	
+
 			TriggerServerEvent('vCAD:SaveZonenConfig', posi, PublicID, 'wanted', Prompt, System)
 		end
 		xOpenMenu:AddItem(FahndungAdd)
-	
-		local CarNetKatalogAdd = NativeUI.CreateItem('🚘 CarNet Katalog Hinzufügen', 'Hier ist es möglich den ~y~CarNet~s~ Katalog einzusehen.')
+
+		local CarNetKatalogAdd = NativeUI.CreateItem('🚘 CarNet Katalog Hinzufügen',
+			'Hier ist es möglich den ~y~CarNet~s~ Katalog einzusehen.')
 		CarNetKatalogAdd.Activated = function(sender, item)
 			ShowNotification("Gib nun die PublicID ein!", "info")
 			Wait(500)
 			PublicID = CreateDialog("PublicID")
-	
+
 			if PublicID == nil or PublicID == '' then
 				ShowNotification('Du musst eine Public ID eingeben.')
 				return
 			end
-	
+
 			local ped = PlayerPedId()
 			local coords = GetEntityCoords(ped)
 			local posi = vector3(coords.x, coords.y, coords.z - 1.0)
 			local Prompt = CheckPrompt('katalog')
-	
+
 			TriggerServerEvent('vCAD:SaveZonenConfig', posi, PublicID, 'katalog', Prompt, System)
 		end
 		xOpenMenu:AddItem(CarNetKatalogAdd)
-	
-	
-	
+
+
+
 		xOpenMenu.OnListChange = function(sender, item, index)
 			if item == xSystem then
 				System = item:IndexToItem(index)
-	
+
 				if System == '~b~CopNet' then
 					System = 'cop'
 				elseif System == '~r~MedicNet' then
@@ -810,25 +821,26 @@ if Config.NativeUIEnabled and not Config.OxMySQL then
 				elseif System == '~o~FireNet' then
 					System = 'fd'
 				end
-	
+
 				print(System)
 			end
 		end
-	
-	
+
+
 		_menuPool:RefreshIndex()
-		_menuPool:MouseControlsEnabled (false);
-		_menuPool:MouseEdgeEnabled (false);
+		_menuPool:MouseControlsEnabled(false);
+		_menuPool:MouseEdgeEnabled(false);
 		_menuPool:ControlDisablingEnabled(false);
 	end
 end
 
 if not Config.NativeUIEnabled and not Config.OxMySQL then
-
 	Citizen.CreateThread(function()
-		TriggerEvent("chat:addSuggestion", "/vcad", "Generiert ein punkt mit dem zugang für ein PC, Strafen, Bewerber, Beschwerde, Kalender, Fahndung, Katalog oder für die Homepage",{ 
-			{name = "möglichkeiten:", help = "pc, strafen, bewerben, katalog, beschwerden, kalender, fahndung, hp"},
-		})
+		TriggerEvent("chat:addSuggestion", "/vcad",
+			"Generiert ein punkt mit dem zugang für ein PC, Strafen, Bewerber, Beschwerde, Kalender, Fahndung, Katalog oder für die Homepage",
+			{
+				{ name = "möglichkeiten:", help = "pc, strafen, bewerben, katalog, beschwerden, kalender, fahndung, hp" },
+			})
 	end)
 
 	function OpenMenu(args)
