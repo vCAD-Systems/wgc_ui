@@ -255,12 +255,12 @@ function canOpenTablet(system, newSite, pos)
 					break
 				elseif type(Config.NeededItem) == 'table' then
 					for key, value in pairs(Config.NeededItem) do
-						if v.name ~= nil and v.name ~= 'nil' and v.name == value and v.count > 0 then
+						if v ~= nil and v.name ~= nil and value ~= nil and value ~= 'nil' and v.name == value and (v.count or v.amount or 0) > 0 then
 							found = true
 							break
 						end
 					end
-				elseif v.name == Config.NeededItem and v.count > 0 then
+				elseif v ~= nil and v.name ~= nil and v.name == Config.NeededItem and (v.count or v.amount or 0) > 0 then
 					found = true
 					break
 				end

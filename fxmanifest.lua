@@ -3,7 +3,7 @@ game 'gta5'
 
 name 'vCAD UI - ESX Version'
 author 'Ffrankys, Flixxx, Tallerik & Mîhó'
-version '2.0.1'
+version '2.0.2'
 
 client_scripts {
     '@NativeUI/NativeUI.lua',
